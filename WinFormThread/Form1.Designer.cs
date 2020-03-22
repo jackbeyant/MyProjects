@@ -32,8 +32,9 @@
             this.btnAsyn = new DevExpress.XtraEditors.SimpleButton();
             this.btnThreadPool = new DevExpress.XtraEditors.SimpleButton();
             this.btnThread = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton6 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnTask = new DevExpress.XtraEditors.SimpleButton();
+            this.btnMultiTasks = new DevExpress.XtraEditors.SimpleButton();
+            this.btnParallel = new DevExpress.XtraEditors.SimpleButton();
             this.SuspendLayout();
             // 
             // btnSync
@@ -68,32 +69,42 @@
             this.btnThread.TabIndex = 2;
             this.btnThread.Text = "Thread线程";
             // 
-            // simpleButton5
+            // btnTask
             // 
-            this.simpleButton5.Location = new System.Drawing.Point(267, 40);
-            this.simpleButton5.Name = "simpleButton5";
-            this.simpleButton5.Size = new System.Drawing.Size(100, 40);
-            this.simpleButton5.TabIndex = 0;
-            this.simpleButton5.Text = "simpleButton1";
+            this.btnTask.Location = new System.Drawing.Point(267, 40);
+            this.btnTask.Name = "btnTask";
+            this.btnTask.Size = new System.Drawing.Size(100, 40);
+            this.btnTask.TabIndex = 0;
+            this.btnTask.Text = "Task任务";
             // 
-            // simpleButton6
+            // btnMultiTasks
             // 
-            this.simpleButton6.Location = new System.Drawing.Point(267, 112);
-            this.simpleButton6.Name = "simpleButton6";
-            this.simpleButton6.Size = new System.Drawing.Size(100, 40);
-            this.simpleButton6.TabIndex = 0;
-            this.simpleButton6.Text = "simpleButton1";
+            this.btnMultiTasks.Location = new System.Drawing.Point(267, 112);
+            this.btnMultiTasks.Name = "btnMultiTasks";
+            this.btnMultiTasks.Size = new System.Drawing.Size(100, 40);
+            this.btnMultiTasks.TabIndex = 0;
+            this.btnMultiTasks.Text = "多线程并发";
+            // 
+            // btnParallel
+            // 
+            this.btnParallel.Location = new System.Drawing.Point(267, 180);
+            this.btnParallel.Name = "btnParallel";
+            this.btnParallel.Size = new System.Drawing.Size(100, 40);
+            this.btnParallel.TabIndex = 3;
+            this.btnParallel.Text = "Parallel并发操作";
+            this.btnParallel.Click += new System.EventHandler(this.btnParallel_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(549, 338);
+            this.Controls.Add(this.btnParallel);
             this.Controls.Add(this.btnThreadPool);
             this.Controls.Add(this.btnThread);
-            this.Controls.Add(this.simpleButton6);
+            this.Controls.Add(this.btnMultiTasks);
             this.Controls.Add(this.btnAsyn);
-            this.Controls.Add(this.simpleButton5);
+            this.Controls.Add(this.btnTask);
             this.Controls.Add(this.btnSync);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -107,8 +118,9 @@
         private DevExpress.XtraEditors.SimpleButton btnAsyn;
         private DevExpress.XtraEditors.SimpleButton btnThreadPool;
         private DevExpress.XtraEditors.SimpleButton btnThread;
-        private DevExpress.XtraEditors.SimpleButton simpleButton5;
-        private DevExpress.XtraEditors.SimpleButton simpleButton6;
+        private DevExpress.XtraEditors.SimpleButton btnTask;
+        private DevExpress.XtraEditors.SimpleButton btnMultiTasks;
+        private DevExpress.XtraEditors.SimpleButton btnParallel;
     }
 }
 
