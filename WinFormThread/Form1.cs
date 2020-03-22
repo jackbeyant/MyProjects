@@ -576,5 +576,88 @@ namespace WinFormThread
                 }
             }
         }
+
+        /// <summary>
+        /// Parallel的并发操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void btnParallel_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine($"****************btnParallel_Click Start   {Thread.CurrentThread.ManagedThreadId.ToString("00")} {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}***************");
+            {
+
+                /**Parallel类的Invoke()方法:阻塞方法
+                 * 多线程并发执行多个Action操作
+                 * 主线程参加操作,会阻塞页面
+                 * 当所有的线程任务执行完毕后,该方法才返回
+                 * */
+
+                Parallel.Invoke(() => this.DoSomethingLong("btnParallel_Click_1"),
+                    () => this.DoSomethingLong("btnParallel_Click_2"),
+                    () => this.DoSomethingLong("btnParallel_Click_3"),
+                    () => this.DoSomethingLong("btnParallel_Click_4"),
+                    () => this.DoSomethingLong("btnParallel_Click_5"));
+            }
+
+            {
+                //Parallel类的For方法
+                Parallel.For(0, 5, i => this.DoSomethingLong($"btnParallel_Click_{i}"));
+            }
+
+            {
+                /**Parallel类的ForEach方法:
+                 * 多线程并发地从数据源中取出数据,然后并发地执行对应的线程任务
+                 * */
+                Parallel.ForEach(new int[] { 0, 1, 2, 3, 4 }, i => this.DoSomethingLong($"btnParallel_Click_{i}"));
+            }
+
+            //多线程中并发问题的处理
+
+            {   
+                //ParallelOptions类提供对Parallel的配置操作
+                ParallelOptions parallelOptions = new ParallelOptions();
+                //设置并发任务的最大线程数目
+                parallelOptions.MaxDegreeOfParallelism = 3;
+
+                Parallel.Invoke(parallelOptions,() => this.DoSomethingLong("btnParallel_Click_1"),
+                   () => this.DoSomethingLong("btnParallel_Click_2"),
+                   () => this.DoSomethingLong("btnParallel_Click_3"),
+                   () => this.DoSomethingLong("btnParallel_Click_4"),
+                   () => this.DoSomethingLong("btnParallel_Click_5"));
+            }
+
+            {
+                //ParallelOptions类提供对Parallel的配置操作
+                ParallelOptions options = new ParallelOptions();
+                options.MaxDegreeOfParallelism = 3;//设置并发任务的最大线程数目
+                Parallel.For(0, 10, options, i => this.DoSomethingLong($"btnParallel_Click_{i}"));
+            }
+
+            {
+                ParallelOptions parallelOptions = new ParallelOptions();
+                parallelOptions.MaxDegreeOfParallelism = 4;
+                Parallel.ForEach(new int[] { 0, 1, 2, 3, 4 }, parallelOptions,i => this.DoSomethingLong($"btnParallel_Click_{i}"));
+
+            }
+
+            {  
+            /***
+            * 以上三个方法都属于线程的阻塞方法,都将等待所有的线程任务完成后
+            * 才解除对当前线程的阻塞(默认情况下是主线程)
+            * 但我们可以使用Task包装线程,嵌套线程,解除对主线程的依赖
+            * */
+                //有没有办法不阻塞？
+
+                Task.Run(() =>
+                {
+                    ParallelOptions options = new ParallelOptions();
+                    options.MaxDegreeOfParallelism = 3;
+                    Parallel.For(0, 10, options, i => this.DoSomethingLong($"btnParallel_Click_{i}"));
+                });
+            }
+            Console.WriteLine($"****************btnParallel_Click End   {Thread.CurrentThread.ManagedThreadId.ToString("00")} {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}***************");
+        }
     }
 }
